@@ -8,6 +8,7 @@
 <struts>
     <package name="login.action" namespace="" extends="struts-default">
         <action name="Login" class="login.action.Login" method="login">
+            <result name="CONNECTIONERROR">error/connectionerror.jsp</result>
             <result name="SUCCESS">content/listpagecontent.jsp</result>
             <result name="INPUT" />
         </action>

@@ -5,6 +5,8 @@
 
 package login.action;
 
+import connection.FtpClientConnectionHelperClass;
+
 /**
  *
  * @author Géza
@@ -19,7 +21,9 @@ public class Login{
 
     public String login() throws Exception {
         System.out.println(username+" "+password+" "+address);
-        return "SUCCESS";
+        if (FtpClientConnectionHelperClass.connectClient(username, password, address) == true){
+            return "SUCCESS";
+        } else return "CONNECTIONERROR";
     }
 
     public String getPassword() {

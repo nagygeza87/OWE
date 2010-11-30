@@ -12,20 +12,22 @@ import org.apache.commons.net.ftp.FTPClient;
  */
 public class FtpClientConnectionHelperClass {
 
-    FTPClient client = null;
+    private static FTPClient client = null;
 
-    public void connectClient(String username, String password, String url) {
+    public static boolean connectClient(String username, String password, String url) {
         try {
             client = new FTPClient();
             client.connect(url);
             client.login(username, password);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
 
     }
 
-    public void diconnectClient() {
+    public static void diconnectClient() {
         try {
             if (client.isConnected() == true) {
                 client.disconnect();
@@ -38,4 +40,9 @@ public class FtpClientConnectionHelperClass {
             e.printStackTrace();
         }
     }
+
+    public static FTPClient getClient() {
+        return client;
+    }
+
 }
