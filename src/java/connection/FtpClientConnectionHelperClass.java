@@ -4,8 +4,6 @@
  */
 package connection;
 
-import java.io.IOException;
-import java.net.SocketException;
 import org.apache.commons.net.ftp.FTPClient;
 
 /**
@@ -22,7 +20,7 @@ public class FtpClientConnectionHelperClass {
             client.connect(url);
             client.login(username, password);
         } catch (Exception e) {
-            e.printStackTrace();  
+            e.printStackTrace();
         }
 
     }
