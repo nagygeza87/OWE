@@ -18,6 +18,10 @@
             <result name="SUCCESS">content/listpagecontent.jsp</result>
             <result name="ERROR">error/</result>
         </action>
+        <action name="ListDirectory" class="list.action.ListDirectoryContents" method="listDirectory">
+            <result name="SUCCESS">content/listpagecontent.jsp</result>
+            <result name="ERROR">error/</result>
+        </action>
     </package>
 </struts>
 

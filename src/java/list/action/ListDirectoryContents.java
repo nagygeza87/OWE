@@ -37,6 +37,19 @@ public class ListDirectoryContents {
         }
     }
 
+    public String listDirectory(){
+        try{
+            FTPClient cl = FtpClientConnectionHelperClass.getClient();
+            cl.enterLocalPassiveMode();
+            cl.cwd(directory);
+            elemek = Arrays.asList(cl.listFiles());
+            return "SUCCESS";
+        } catch (Exception e){
+            e.printStackTrace();
+            return "ERROR";
+        }
+    }
+
     public String getDirectory() {
         return directory;
     }
