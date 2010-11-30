@@ -18,8 +18,11 @@ public class FtpClientConnectionHelperClass {
         try {
             client = new FTPClient();
             client.connect(url);
-            client.login(username, password);
-            return true;
+            if (client.login(username, password) == true) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -36,7 +39,7 @@ public class FtpClientConnectionHelperClass {
                     client = null;
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -44,5 +47,4 @@ public class FtpClientConnectionHelperClass {
     public static FTPClient getClient() {
         return client;
     }
-
 }

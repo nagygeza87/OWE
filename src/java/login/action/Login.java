@@ -23,7 +23,9 @@ public class Login{
         System.out.println(username+" "+password+" "+address);
         if (FtpClientConnectionHelperClass.connectClient(username, password, address) == true){
             return "SUCCESS";
-        } else return "CONNECTIONERROR";
+        } else {
+            return "CONNECTIONERROR";
+        }
     }
 
     public String getPassword() {
