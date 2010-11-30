@@ -20,7 +20,6 @@ public class Login{
 
 
     public String login() throws Exception {
-        System.out.println(username+" "+password+" "+address);
         if (FtpClientConnectionHelperClass.connectClient(username, password, address) == true){
             return "SUCCESS";
         } else {

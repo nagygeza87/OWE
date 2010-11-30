@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -14,6 +15,8 @@
         <title>Page contents</title>
     </head>
     <body>
-        <h1>Hello there!</h1>
+        <s:iterator value="elemek" var="elemek">
+            <p><s:property value="#elemek.name" /></p>
+        </s:iterator>
     </body>
 </html>

@@ -11,6 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import list.model.FtpFileListItem;
 import connection.FtpClientConnectionHelperClass;
+import java.util.Arrays;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 /**
  *
  * @author Géza
@@ -18,18 +21,37 @@ import connection.FtpClientConnectionHelperClass;
 
 public class ListDirectoryContents {
 
-    List<FtpFileListItem> elemek;
+    List<FTPFile> elemek;
     String directory;
     
 
     public String list(){
         try {
-            FtpClientConnectionHelperClass.getClient().listFiles();
+            FTPClient cl = FtpClientConnectionHelperClass.getClient();
+            cl.enterLocalPassiveMode();
+            elemek = Arrays.asList(cl.listFiles());
             return "SUCCESS";
         } catch (Exception e) {
             e.printStackTrace();
             return "ERROR";
         }
     }
+
+    public String getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(String directory) {
+        this.directory = directory;
+    }
+
+    public List<FTPFile> getElemek() {
+        return elemek;
+    }
+
+    public void setElemek(List<FTPFile> elemek) {
+        this.elemek = elemek;
+    }
+
 
 }
