@@ -5,11 +5,7 @@
 
 package list.action;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import list.model.FtpFileListItem;
 import connection.FtpClientConnectionHelperClass;
 import java.util.Arrays;
 import org.apache.commons.net.ftp.FTPClient;
