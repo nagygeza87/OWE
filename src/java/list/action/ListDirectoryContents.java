@@ -5,6 +5,12 @@
 
 package list.action;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import list.model.FtpFileListItem;
+import connection.FtpClientConnectionHelperClass;
 /**
  *
  * @author Géza
@@ -12,11 +18,18 @@ package list.action;
 
 public class ListDirectoryContents {
 
-    String directoryname;
+    List<FtpFileListItem> elemek;
+    String directory;
     
 
-    public String list() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String list(){
+        try {
+            FtpClientConnectionHelperClass.getClient().listFiles();
+            return "SUCCESS";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ERROR";
+        }
     }
 
 }

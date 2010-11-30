@@ -9,8 +9,12 @@
     <package name="login.action" namespace="" extends="struts-default">
         <action name="Login" class="login.action.Login" method="login">
             <result name="CONNECTIONERROR">error/connectionerror.jsp</result>
-            <result name="SUCCESS">content/listpagecontent.jsp</result>
+            <result name="SUCCESS">ListContents</result>
             <result name="INPUT" />
+        </action>
+        <action name="ListContents" class="list.action.ListDirectoryContents" method="list">
+            <result name="SUCCESS">content/listpagecontent.jsp</result>
+            <result name="ERROR">error/</result>
         </action>
     </package>
 </struts>
