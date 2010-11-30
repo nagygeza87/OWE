@@ -16,14 +16,14 @@
     </head>
     <body>
         <s:iterator value="elemek" var="elemek">
-            <s:if test="%{#elemek.type == 0}">
-                <p><s:property value="%{#elemek.name}" /></p>
+            <s:if test="#elemek.type == 0">
+                <p><s:property value="#elemek.name" /></p>
             </s:if>
             <s:else>
                 <s:url action="ListDirectory" var="dirurl">
-                    <s:param name="directory" value="<s:property value=%{#elemek.name} />" />
+                    <s:param name="directory"><s:property value="%{#elemek.name}"/></s:param>
                 </s:url>
-                <p><s:a href="%{#dirurl}"><s:param value="%{#elemek.name}" /></s:a></p>
+                <p><a href="<s:property value="#dirurl" />"><s:property value="#elemek.name" /></a></p>
             </s:else>
         </s:iterator>
     </body>
