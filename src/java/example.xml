@@ -12,6 +12,9 @@
             <result name="SUCCESS" type="redirectAction">ListContents</result>
             <result name="INPUT" />
         </action>
+        <action name="Logout" class="login.action.Logout" method="logout">
+            <result name="SUCCESS">index.jsp</result>
+        </action>
     </package>
     <package name="list.action" namespace="" extends="struts-default">
         <action name="ListContents" class="list.action.ListDirectoryContents" method="list">
@@ -20,7 +23,11 @@
         </action>
         <action name="ListDirectory" class="list.action.ListDirectoryContents" method="listDirectory">
             <result name="SUCCESS">content/listpagecontent.jsp</result>
-            <result name="ERROR">error/</result>
+            <result name="ERROR">index.jsp</result>
+        </action>
+        <action name="UpDirectory" class="list.action.ListDirectoryContents" method="upDirectory">
+            <result name="SUCCESS">content/listpagecontent.jsp</result>
+            <result name="ERROR">index.jsp</result>
         </action>
     </package>
 </struts>

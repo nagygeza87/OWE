@@ -15,6 +15,13 @@
         <title>Page contents</title>
     </head>
     <body>
+        <p><s:url action="Logout" var="logouturl" />
+        <s:a href="%{#logouturl}">Kijelentkezés</s:a></p>
+
+        <p><s:url action="UpDirectory" var="updirectoryurl" />
+        <s:a href="%{#updirectoryurl}">Egy könyvtárral feljebb</s:a></p>
+
+
         <s:iterator value="elemek" var="elemek">
             <s:if test="#elemek.type == 0">
                 <p><s:property value="#elemek.name" /></p>
@@ -23,7 +30,7 @@
                 <s:url action="ListDirectory" var="dirurl">
                     <s:param name="directory"><s:property value="%{#elemek.name}"/></s:param>
                 </s:url>
-                <p><a href="<s:property value="#dirurl" />"><s:property value="#elemek.name" /></a></p>
+                <p><s:a href="%{#dirurl}"><s:property value="#elemek.name" /></s:a></p>
             </s:else>
         </s:iterator>
     </body>

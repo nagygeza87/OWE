@@ -34,6 +34,7 @@ public class FtpClientConnectionHelperClass {
         try {
             if (client.isConnected() == true) {
                 client.disconnect();
+                client = null;
             } else {
                 if (client != null) {
                     client = null;
