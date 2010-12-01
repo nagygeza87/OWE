@@ -1,0 +1,316 @@
+From a3c31f0e045cfa545994eba2a15a555d23a0774d Mon Sep 17 00:00:00 2001
+Message-Id: <a3c31f0e045cfa545994eba2a15a555d23a0774d.1291192486.git.nagy.geza87@gmail.com>
+From: =?UTF-8?q?Nagy=20G=C3=A9za?= <geza@nagy-K50AB.(none)>
+Date: Tue, 30 Nov 2010 22:15:11 +0100
+Subject: [PATCH] directory change
+
+---
+ .../list/action/ListDirectoryContents.class        |  Bin 1918 -> 1918 bytes
+ .../classes/list/model/FtpFileListItem.class       |  Bin 0 -> 724 bytes
+ build/web/content/listpagecontent.jsp              |    8 +-
+ build/web/error/connectionerror.jsp                |   19 +++
+ nbproject/private/private.properties               |   13 +-
+ nbproject/private/private.xml                      |    8 +-
+ nbproject/project.properties                       |  167 ++++++++++----------
+ src/java/list/action/ListDirectoryContents.java    |    4 -
+ 8 files changed, 118 insertions(+), 101 deletions(-)
+
+diff --git a/build/web/WEB-INF/classes/list/action/ListDirectoryContents.class b/build/web/WEB-INF/classes/list/action/ListDirectoryContents.class
+index 0db5623544afee8b8ed7cab7f457b05b6d0856d3..796b13e780c5a01683221ab3413967ea862dac7f 100644
+GIT binary patch
+delta 113
+zcmeyz_m6J_4=bb4WM0--Nht;v25ANk1{nrn23ZC%1~~?C26>=}!sKSwDp@t4tU6Fu
+zgF%o%6R1WDD5uS!z@WpR!k{}@iY<WAXmU22Evp#=D}(uDJ9hEON7(ckttNkAb7i#y
+JirE9j900dj5$ON`
+
+delta 113
+zcmeyz_m6J_4=bbCWM0--NjU}<26+Y!1_cIT21N!j1|<e@24x0m29?RptW~mFKv`{|
+ztPX=9gD!&%gC0<=K2WUzg9?M;WGS`)MzhJ;Y__ac46F>+lkM2WCm&(cXSAFAh0T@K
+L2`J_a6mtLo%Q+H3
+
+diff --git a/build/web/WEB-INF/classes/list/model/FtpFileListItem.class b/build/web/WEB-INF/classes/list/model/FtpFileListItem.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..67ec6944d5dedcb5ec621e987ad86f2b27236df4
+GIT binary patch
+literal 724
+zcmZ{gO;5r=5Qg6^AC+1~kq<?bcmqsqJZrd^keD=hfN(Fk!6j`WWijzzX`(Ul;1BRe
+z8D|#^v6e%pv+vH#`|Nyue|!SC#EFFr4s%H3NQJ72V-q!obm#?~q2NxuN6+!SaP0JC
+zB*O6(-N~mJ-DR&uC}f)<)o2b#y_w#Vns-IWyNh7RqrNxv^^EDr^9Noe)OjVQ<%5_r
+z)LdW8r4vxA?{ws>BYf_Xaw~a2PUe`)t_CSKnn@_;{I{Ug_<ygk)QG<3Rkh2^>P;8X
+zh$}OOV$AkJz1T($mW?b-8(T0Ls+&0(_SQ?f8&3F0;*55gp#>ZC(GZGIb0}uO)NG2|
+zbaLp=l-ha+d!fXDO);xQ8#|QS%L42oPbV_NKE=PyuP~lt&4t9~0uENqZL-pIt@Ae+
+yYimoZW#X*p3FT$g%3h(V_bBROB1kF@QcVOYC4;2mAg2UU-vFW(szA#6>6IU;7jJ(6
+
+literal 0
+HcmV?d00001
+
+diff --git a/build/web/content/listpagecontent.jsp b/build/web/content/listpagecontent.jsp
+index 8b8f493..f4aba71 100644
+--- a/build/web/content/listpagecontent.jsp
++++ b/build/web/content/listpagecontent.jsp
+@@ -16,14 +16,14 @@
+     </head>
+     <body>
+         <s:iterator value="elemek" var="elemek">
+-            <s:if test="%{#elemek.type == 0}">
+-                <p><s:property value="%{#elemek.name}" /></p>
++            <s:if test="#elemek.type == 0">
++                <p><s:property value="#elemek.name" /></p>
+             </s:if>
+             <s:else>
+                 <s:url action="ListDirectory" var="dirurl">
+-                    <s:param name="directory" value="<s:property value=%{#elemek.name} />" />
++                    <s:param name="directory"><s:property value="%{#elemek.name}"/></s:param>
+                 </s:url>
+-                <p><s:a href="%{#dirurl}"><s:param value="%{#elemek.name}" /></s:a></p>
++                <p><a href="<s:property value="#dirurl" />"><s:property value="#elemek.name" /></a></p>
+             </s:else>
+         </s:iterator>
+     </body>
+diff --git a/build/web/error/connectionerror.jsp b/build/web/error/connectionerror.jsp
+new file mode 100644
+index 0000000..8371b4b
+--- /dev/null
++++ b/build/web/error/connectionerror.jsp
+@@ -0,0 +1,19 @@
++<%-- 
++    Document   : connectionerror
++    Created on : 2010.11.30., 9:01:54
++    Author     : Geza
++--%>
++
++<%@page contentType="text/html" pageEncoding="UTF-8"%>
++<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
++   "http://www.w3.org/TR/html4/loose.dtd">
++
++<html>
++    <head>
++        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
++        <title>There has been a terrible error...</title>
++    </head>
++    <body>
++        <h1>Oooops. Something is wrong... :S:S</h1>
++    </body>
++</html>
+diff --git a/nbproject/private/private.properties b/nbproject/private/private.properties
+index 3e6c798..a8438af 100644
+--- a/nbproject/private/private.properties
++++ b/nbproject/private/private.properties
+@@ -1,6 +1,7 @@
+-deploy.ant.properties.file=C:\\Users\\G\u00e9za\\.netbeans\\6.9\\tomcat60.properties
+-j2ee.server.home=E:\\Program Files\\apache-tomcat-6.0.29
+-j2ee.server.instance=tomcat60:home=E:\\Program Files\\apache-tomcat-6.0.29
+-javac.debug=true
+-javadoc.preview=true
+-user.properties.file=C:\\Users\\G\u00e9za\\.netbeans\\6.9\\build.properties
++deploy.ant.properties.file=/home/geza/.netbeans/6.9/tomcat60.properties
++file.reference.commons-net-2.2.jar=/media/D/Program/jars/commons-net-2.2-bin/commons-net-2.2/commons-net-2.2.jar
++j2ee.server.home=/usr/local/apache-tomcat-6.0.26
++j2ee.server.instance=tomcat60:home=/usr/local/apache-tomcat-6.0.26:base=apache-tomcat-6.0.26_base
++javac.debug=true
++javadoc.preview=true
++user.properties.file=/home/geza/.netbeans/6.9/build.properties
+diff --git a/nbproject/private/private.xml b/nbproject/private/private.xml
+index cc2c0e5..c1f155a 100644
+--- a/nbproject/private/private.xml
++++ b/nbproject/private/private.xml
+@@ -1,4 +1,4 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+-</project-private>
++<?xml version="1.0" encoding="UTF-8"?>
++<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
++    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
++</project-private>
+diff --git a/nbproject/project.properties b/nbproject/project.properties
+index 6f5b910..b17b90c 100644
+--- a/nbproject/project.properties
++++ b/nbproject/project.properties
+@@ -1,83 +1,84 @@
+-annotation.processing.enabled=true
+-annotation.processing.enabled.in.editor=true
+-annotation.processing.run.all.processors=true
+-annotation.processing.source.output=${build.generated.sources.dir}/ap-source-output
+-build.classes.dir=${build.web.dir}/WEB-INF/classes
+-build.classes.excludes=**/*.java,**/*.form
+-build.dir=build
+-build.generated.dir=${build.dir}/generated
+-build.generated.sources.dir=${build.dir}/generated-sources
+-build.test.classes.dir=${build.dir}/test/classes
+-build.test.results.dir=${build.dir}/test/results
+-build.web.dir=${build.dir}/web
+-build.web.excludes=${build.classes.excludes}
+-client.urlPart=
+-compile.jsps=false
+-conf.dir=${source.root}/conf
+-debug.classpath=${build.classes.dir}:${javac.classpath}
+-debug.test.classpath=\
+-    ${run.test.classpath}
+-display.browser=true
+-dist.dir=dist
+-dist.ear.war=${dist.dir}/${war.ear.name}
+-dist.javadoc.dir=${dist.dir}/javadoc
+-dist.war=${dist.dir}/${war.name}
+-endorsed.classpath=
+-excludes=
+-file.reference.commons-net-2.2.jar=E:\\Program\\libs\\commons-net-2.2-bin\\commons-net-2.2\\commons-net-2.2.jar
+-includes=**
+-j2ee.deploy.on.save=true
+-j2ee.platform=1.5
+-j2ee.platform.classpath=${j2ee.server.home}\\lib\\annotations-api.jar:${j2ee.server.home}\\lib\\catalina-ant.jar:${j2ee.server.home}\\lib\\catalina-ha.jar:${j2ee.server.home}\\lib\\catalina-tribes.jar:${j2ee.server.home}\\lib\\catalina.jar:${j2ee.server.home}\\lib\\el-api.jar:${j2ee.server.home}\\lib\\jasper-el.jar:${j2ee.server.home}\\lib\\jasper.jar:${j2ee.server.home}\\lib\\jsp-api.jar:${j2ee.server.home}\\lib\\servlet-api.jar:${j2ee.server.home}\\lib\\tomcat-coyote.jar:${j2ee.server.home}\\lib\\tomcat-dbcp.jar:${j2ee.server.home}\\lib\\tomcat-i18n-es.jar:${j2ee.server.home}\\lib\\tomcat-i18n-fr.jar:${j2ee.server.home}\\lib\\tomcat-i18n-ja.jar:${j2ee.server.home}\\bin\\tomcat-juli.jar
+-j2ee.server.type=Tomcat60
+-jar.compress=false
+-javac.classpath=\
+-    ${libs.struts2lib-2-1-8-basic.classpath}:\
+-    ${libs.ejb3-persistence.classpath}:\
+-    ${file.reference.commons-net-2.2.jar}
+-# Space-separated list of extra javac options
+-javac.compilerargs=
+-javac.debug=true
+-javac.deprecation=false
+-javac.processorpath=\
+-    ${javac.classpath}
+-javac.source=1.5
+-javac.target=1.5
+-javac.test.classpath=\
+-    ${javac.classpath}:\
+-    ${build.classes.dir}:\
+-    ${libs.junit.classpath}:\
+-    ${libs.junit_4.classpath}
+-javac.test.processorpath=\
+-    ${javac.test.classpath}
+-javadoc.additionalparam=
+-javadoc.author=false
+-javadoc.encoding=${source.encoding}
+-javadoc.noindex=false
+-javadoc.nonavbar=false
+-javadoc.notree=false
+-javadoc.preview=true
+-javadoc.private=false
+-javadoc.splitindex=true
+-javadoc.use=true
+-javadoc.version=false
+-javadoc.windowtitle=
+-lib.dir=${web.docbase.dir}/WEB-INF/lib
+-persistence.xml.dir=${conf.dir}
+-platform.active=default_platform
+-resource.dir=setup
+-run.test.classpath=\
+-    ${javac.test.classpath}:\
+-    ${build.test.classes.dir}
+-# Space-separated list of JVM arguments used when running a class with a main method or a unit test
+-# (you may also define separate properties like run-sys-prop.name=value instead of -Dname=value):
+-runmain.jvmargs=
+-source.encoding=UTF-8
+-source.root=src
+-src.dir=${source.root}/java
+-test.src.dir=test
+-war.content.additional=
+-war.ear.name=OWE.war
+-war.name=OWE.war
+-web.docbase.dir=web
+-webinf.dir=web/WEB-INF
++annotation.processing.enabled=true
++annotation.processing.enabled.in.editor=true
++annotation.processing.processors.list=
++annotation.processing.run.all.processors=true
++annotation.processing.source.output=${build.generated.sources.dir}/ap-source-output
++build.classes.dir=${build.web.dir}/WEB-INF/classes
++build.classes.excludes=**/*.java,**/*.form
++build.dir=build
++build.generated.dir=${build.dir}/generated
++build.generated.sources.dir=${build.dir}/generated-sources
++build.test.classes.dir=${build.dir}/test/classes
++build.test.results.dir=${build.dir}/test/results
++build.web.dir=${build.dir}/web
++build.web.excludes=${build.classes.excludes}
++client.urlPart=
++compile.jsps=false
++conf.dir=${source.root}/conf
++debug.classpath=${build.classes.dir}:${javac.classpath}
++debug.test.classpath=\
++    ${run.test.classpath}
++display.browser=true
++dist.dir=dist
++dist.ear.war=${dist.dir}/${war.ear.name}
++dist.javadoc.dir=${dist.dir}/javadoc
++dist.war=${dist.dir}/${war.name}
++endorsed.classpath=
++excludes=
++file.reference.commons-net-2.2.jar=E:\\Program\\libs\\commons-net-2.2-bin\\commons-net-2.2\\commons-net-2.2.jar
++includes=**
++j2ee.deploy.on.save=true
++j2ee.platform=1.5
++j2ee.platform.classpath=${j2ee.server.home}/lib/tomcat-i18n-ja.jar:${j2ee.server.home}/lib/catalina-ant.jar:${j2ee.server.home}/lib/tomcat-dbcp.jar:${j2ee.server.home}/lib/tomcat-i18n-fr.jar:${j2ee.server.home}/lib/tomcat-coyote.jar:${j2ee.server.home}/lib/jasper.jar:${j2ee.server.home}/lib/catalina-tribes.jar:${j2ee.server.home}/lib/catalina-ha.jar:${j2ee.server.home}/lib/annotations-api.jar:${j2ee.server.home}/lib/jsp-api.jar:${j2ee.server.home}/lib/el-api.jar:${j2ee.server.home}/lib/jasper-el.jar:${j2ee.server.home}/lib/tomcat-i18n-es.jar:${j2ee.server.home}/lib/servlet-api.jar:${j2ee.server.home}/lib/catalina.jar:${j2ee.server.home}/bin/tomcat-juli.jar
++j2ee.server.type=Tomcat60
++jar.compress=false
++javac.classpath=\
++    ${libs.struts2lib-2-1-8-basic.classpath}:\
++    ${libs.ejb3-persistence.classpath}:\
++    ${file.reference.commons-net-2.2.jar}
++# Space-separated list of extra javac options
++javac.compilerargs=
++javac.debug=true
++javac.deprecation=false
++javac.processorpath=\
++    ${javac.classpath}
++javac.source=1.5
++javac.target=1.5
++javac.test.classpath=\
++    ${javac.classpath}:\
++    ${build.classes.dir}:\
++    ${libs.junit.classpath}:\
++    ${libs.junit_4.classpath}
++javac.test.processorpath=\
++    ${javac.test.classpath}
++javadoc.additionalparam=
++javadoc.author=false
++javadoc.encoding=${source.encoding}
++javadoc.noindex=false
++javadoc.nonavbar=false
++javadoc.notree=false
++javadoc.preview=true
++javadoc.private=false
++javadoc.splitindex=true
++javadoc.use=true
++javadoc.version=false
++javadoc.windowtitle=
++lib.dir=${web.docbase.dir}/WEB-INF/lib
++persistence.xml.dir=${conf.dir}
++platform.active=default_platform
++resource.dir=setup
++run.test.classpath=\
++    ${javac.test.classpath}:\
++    ${build.test.classes.dir}
++# Space-separated list of JVM arguments used when running a class with a main method or a unit test
++# (you may also define separate properties like run-sys-prop.name=value instead of -Dname=value):
++runmain.jvmargs=
++source.encoding=UTF-8
++source.root=src
++src.dir=${source.root}/java
++test.src.dir=test
++war.content.additional=
++war.ear.name=OWE.war
++war.name=OWE.war
++web.docbase.dir=web
++webinf.dir=web/WEB-INF
+diff --git a/src/java/list/action/ListDirectoryContents.java b/src/java/list/action/ListDirectoryContents.java
+index 4dd2a47..6e56989 100644
+--- a/src/java/list/action/ListDirectoryContents.java
++++ b/src/java/list/action/ListDirectoryContents.java
+@@ -5,11 +5,7 @@
+ 
+ package list.action;
+ 
+-import java.io.IOException;
+ import java.util.List;
+-import java.util.logging.Level;
+-import java.util.logging.Logger;
+-import list.model.FtpFileListItem;
+ import connection.FtpClientConnectionHelperClass;
+ import java.util.Arrays;
+ import org.apache.commons.net.ftp.FTPClient;
+-- 
+1.7.1
+
