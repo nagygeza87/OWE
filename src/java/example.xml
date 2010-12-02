@@ -17,16 +17,22 @@
         </action>
     </package>
     <package name="list.action" namespace="" extends="struts-default">
+        <interceptors>
+            <interceptor name="AuthorizationInterceptor" class="login.interceptor.ValidationInterceptor" />
+        </interceptors>
         <action name="ListContents" class="list.action.ListDirectoryContents" method="list">
             <result name="SUCCESS">content/listpagecontent.jsp</result>
+            <result name="VALIDATION">index.jsp</result>
             <result name="ERROR">error/</result>
         </action>
         <action name="ListDirectory" class="list.action.ListDirectoryContents" method="listDirectory">
             <result name="SUCCESS">content/listpagecontent.jsp</result>
+            <result name="VALIDATION">index.jsp</result>
             <result name="ERROR">index.jsp</result>
         </action>
         <action name="UpDirectory" class="list.action.ListDirectoryContents" method="upDirectory">
             <result name="SUCCESS">content/listpagecontent.jsp</result>
+            <result name="VALIDATION">index.jsp</result>
             <result name="ERROR">index.jsp</result>
         </action>
     </package>

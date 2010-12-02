@@ -5,29 +5,40 @@
 
 package login.interceptor;
 
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.Interceptor;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import java.util.Map;
 
 /**
  *
  * @author geza
  */
 
-public class ValidationInterceptor implements Interceptor {
+public class ValidationInterceptor extends AbstractInterceptor {
 
     public ValidationInterceptor() {
     }
 
+    @Override
     public void destroy() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
+    @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     public String intercept(ActionInvocation actionInvocation) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String result = null;
+        Map session = actionInvocation.getInvocationContext().getSession();
+        if (session != null && session.get("user")!= null){
+            result = actionInvocation.invoke();
+        } else {
+            result = "VALIDATION";
+        }
+        return result;
     }
 
 }
