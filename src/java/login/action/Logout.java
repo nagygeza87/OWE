@@ -5,6 +5,7 @@
 
 package login.action;
 
+import com.opensymphony.xwork2.ActionContext;
 import connection.FtpClientConnectionHelperClass;
 
 /**
@@ -14,7 +15,8 @@ import connection.FtpClientConnectionHelperClass;
 public class Logout {
 
     public String logout(){
-        FtpClientConnectionHelperClass.diconnectClient();
+        Integer userid = (Integer)ActionContext.getContext().getSession().get("user");
+        FtpClientConnectionHelperClass.disconnectClient(userid);
         return "SUCCESS";
     }
 

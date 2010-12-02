@@ -5,6 +5,8 @@
 package connection;
 
 import org.apache.commons.net.ftp.FTPClient;
+import user.UserQueue;
+import user.model.User;
 
 /**
  *
@@ -12,13 +14,12 @@ import org.apache.commons.net.ftp.FTPClient;
  */
 public class FtpClientConnectionHelperClass {
 
-    private static FTPClient client = null;
-
-    public static boolean connectClient(String username, String password, String url) {
+    public static boolean connectClient(Integer userid) {
         try {
-            client = new FTPClient();
-            client.connect(url);
-            if (client.login(username, password) == true) {
+            User u = UserQueue.getUser(userid);
+            u.setClient(new FTPClient());
+            u.getClient().connect(u.getAddress());
+            if (u.getClient().login(u.getUsername(), u.getPassword()) == true) {
                 return true;
             } else {
                 return false;
@@ -30,22 +31,24 @@ public class FtpClientConnectionHelperClass {
 
     }
 
-    public static void diconnectClient() {
+    public static void disconnectClient(Integer id) {
         try {
-            if (client.isConnected() == true) {
-                client.disconnect();
-                client = null;
+            User u = UserQueue.getUser(id);
+            if (u.getClient().isConnected() == true) {
+                u.getClient().disconnect();
+                u.setClient(null);
             } else {
-                if (client != null) {
-                    client = null;
+                if (u.getClient() != null) {
+                    u.setClient(null);
                 }
             }
+            UserQueue.removeUser(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static FTPClient getClient() {
-        return client;
+    public static FTPClient getClient(Integer id) {
+        return UserQueue.getUser(id).getClient();
     }
 }

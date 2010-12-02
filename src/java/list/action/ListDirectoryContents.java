@@ -5,11 +5,12 @@
 
 package list.action;
 
+import com.opensymphony.xwork2.ActionContext;
 import java.util.List;
-import connection.FtpClientConnectionHelperClass;
 import java.util.Arrays;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+import user.UserQueue;
 /**
  *
  * @author Géza
@@ -23,7 +24,8 @@ public class ListDirectoryContents {
 
     public String list(){
         try {
-            FTPClient cl = FtpClientConnectionHelperClass.getClient();
+            Integer userid = (Integer)ActionContext.getContext().getSession().get("user");
+            FTPClient cl = UserQueue.getUser(userid).getClient();
             cl.enterLocalPassiveMode();
             elemek = Arrays.asList(cl.listFiles());
             return "SUCCESS";
@@ -35,7 +37,8 @@ public class ListDirectoryContents {
 
     public String listDirectory(){
         try{
-            FTPClient cl = FtpClientConnectionHelperClass.getClient();
+            Integer userid = (Integer)ActionContext.getContext().getSession().get("user");
+            FTPClient cl = UserQueue.getUser(userid).getClient();
             cl.enterLocalPassiveMode();
             cl.cwd(directory);
             elemek = Arrays.asList(cl.listFiles());
@@ -48,7 +51,8 @@ public class ListDirectoryContents {
 
     public String upDirectory(){
         try{
-            FTPClient cl = FtpClientConnectionHelperClass.getClient();
+            Integer userid = (Integer)ActionContext.getContext().getSession().get("user");
+            FTPClient cl = UserQueue.getUser(userid).getClient();
             cl.changeToParentDirectory();
             elemek = Arrays.asList(cl.listFiles());
             return "SUCCESS";

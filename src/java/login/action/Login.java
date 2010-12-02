@@ -5,7 +5,10 @@
 
 package login.action;
 
+import com.opensymphony.xwork2.ActionContext;
 import connection.FtpClientConnectionHelperClass;
+import user.UserQueue;
+import user.model.User;
 
 /**
  *
@@ -20,7 +23,10 @@ public class Login{
 
 
     public String login() throws Exception {
-        if (FtpClientConnectionHelperClass.connectClient(username, password, address) == true){
+        User u = new User(username, password, address);
+        UserQueue.addUser(u);
+        if (FtpClientConnectionHelperClass.connectClient(u.getId()) == true){ 
+            ActionContext.getContext().getSession().put("user", u.getId());
             return "SUCCESS";
         } else {
             return "CONNECTIONERROR";
