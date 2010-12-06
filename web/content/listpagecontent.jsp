@@ -24,7 +24,10 @@
 
         <s:iterator value="elemek" var="elemek">
             <s:if test="#elemek.type == 0">
-                <p><s:property value="#elemek.name" /></p>
+                <s:url action="ListFileContent" var="filecontenturl">
+                    <s:param name="filename"><s:property value="#elemek.name" /></s:param>
+                </s:url>
+                <p><s:a href="%{#filecontenturl}"><s:property value="#elemek.name" /></s:a></p>
             </s:if>
             <s:else>
                 <s:url action="ListDirectory" var="dirurl">

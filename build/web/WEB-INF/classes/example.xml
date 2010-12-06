@@ -35,7 +35,12 @@
             <result name="VALIDATION">index.jsp</result>
             <result name="ERROR">index.jsp</result>
         </action>
+        <action name="ListFileContent" class="list.action.ListFileContent">
+            <result name="SUCCESS">content/editfilecontent.jsp</result>
+            <result name="VALIDATION">index.jsp</result>
+        </action>
     </package>
+
 </struts>
 
 
